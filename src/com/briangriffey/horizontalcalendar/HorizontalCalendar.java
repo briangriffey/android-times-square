@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
  */
 public class HorizontalCalendar extends LinearLayout {
 
+    private MonthTitleView mTitleView;
+
     public HorizontalCalendar(Context context) {
         super(context);
         init(context, null);
@@ -27,10 +29,15 @@ public class HorizontalCalendar extends LinearLayout {
     private void init(Context context, AttributeSet attrs) {
         setOrientation(LinearLayout.VERTICAL);
 
-        LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        WeekdayHeader header = new WeekdayHeader(context, attrs);
-        header.setLayoutParams(params);
+        LinearLayout.LayoutParams fullWidthParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-        addView(header);
+        mTitleView = new MonthTitleView(context);
+        addView(mTitleView, fullWidthParams);
+
+        WeekdayHeader header = new WeekdayHeader(context, attrs);
+        addView(header, fullWidthParams);
+
+        ScrollingWeekView weekView = new ScrollingWeekView(context);
+        addView(weekView, fullWidthParams);
     }
 }

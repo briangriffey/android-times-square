@@ -25,7 +25,10 @@ public class WeekdayHeader extends FrameLayout {
         super(context, attrs);
 
         mWeekdayNameFormat = new SimpleDateFormat(context.getString(R.string.day_name_format));
-        mHeaderViews = (CalendarRowView) LayoutInflater.from(context).inflate(R.layout.weekday_header, this, true);
+        mHeaderViews = (CalendarRowView) LayoutInflater.from(context).inflate(R.layout.weekday_header, this, false);
+        addView(mHeaderViews);
+
+        initializeHeaders();
     }
 
     private void initializeHeaders() {
