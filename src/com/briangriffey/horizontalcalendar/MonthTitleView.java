@@ -80,7 +80,7 @@ public class MonthTitleView extends ViewGroup{
     private void init(Context context) {
         mLeftFlipper = new ImageView(context);
         mRightFlipper = new ImageView(context);
-        mTitleView = new TextView(context);
+        mTitleView = new FillingTextView(context);
 
         mTitleView.setText("Test Text");
         mTitleView.setGravity(Gravity.CENTER);
