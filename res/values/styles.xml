@@ -16,6 +16,9 @@
   <style name="CalendarCell.DayHeader">
     <item name="android:textColor">@color/calendar_text_active</item>
     <item name="android:textSize">@dimen/calendar_text_small</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
   </style>
 
   <style name="CalendarCell.CalendarDate">

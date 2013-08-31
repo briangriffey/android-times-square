@@ -15,10 +15,17 @@ public class ScrollingWeekView extends ListView {
 
     //TODO: make this styleable
     private static final int ROWS_TO_DISPLAY = 3;
+    private static final int ANIMATION_TIME = 100;
+    private int mRowHeight;
 
     public ScrollingWeekView(Context context) {
         super(context);
         setAdapter(new WeekAdapter(context));
+
+        setDivider(null);
+        setDividerHeight(0);
+
+
     }
 
     @Override
@@ -31,13 +38,21 @@ public class ScrollingWeekView extends ListView {
         int cellWidthSpec = makeMeasureSpec(cellSize, EXACTLY);
 
         //since the cells are square then make the height the width
-        int rowHeight = cellSize;
+        mRowHeight = cellSize;
         //figure out how many rows to display
-        int totalHeight = rowHeight * ROWS_TO_DISPLAY;
+        int totalHeight = mRowHeight * ROWS_TO_DISPLAY;
         //set the heightmeasure spect to be this length
         heightMeasureSpec = makeMeasureSpec(totalHeight, EXACTLY);
 
         //call the super so that the listview sets the correct height and figures how how many recycle views it needs etc
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    public void scrollDownOneWeek() {
+        smoothScrollBy(mRowHeight, ANIMATION_TIME);
+    }
+
+    public void scrollUpOneWeek() {
+       smoothScrollBy(-mRowHeight, ANIMATION_TIME);
     }
 }

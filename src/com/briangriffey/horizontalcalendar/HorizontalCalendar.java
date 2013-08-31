@@ -2,14 +2,16 @@ package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
 /**
  * class created by briangriffey
  */
-public class HorizontalCalendar extends LinearLayout {
+public class HorizontalCalendar extends LinearLayout implements View.OnClickListener{
 
     private MonthTitleView mTitleView;
+    private ScrollingWeekView mWeekView;
 
     public HorizontalCalendar(Context context) {
         super(context);
@@ -37,7 +39,23 @@ public class HorizontalCalendar extends LinearLayout {
         WeekdayHeader header = new WeekdayHeader(context, attrs);
         addView(header, fullWidthParams);
 
-        ScrollingWeekView weekView = new ScrollingWeekView(context);
-        addView(weekView, fullWidthParams);
+        mWeekView = new ScrollingWeekView(context);
+        addView(mWeekView, fullWidthParams);
+
+        View rightFlipper = mTitleView.getRightFlipper();
+        rightFlipper.setOnClickListener(this);
+
+        View leftFlipper = mTitleView.getLeftFlipper();
+        leftFlipper.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if(v == mTitleView.getLeftFlipper()) {
+            mWeekView.scrollUpOneWeek();
+        } else if(v == mTitleView.getRightFlipper()) {
+            mWeekView.scrollDownOneWeek();
+        }
     }
 }

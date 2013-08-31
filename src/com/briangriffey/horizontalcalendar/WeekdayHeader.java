@@ -3,6 +3,7 @@ package com.briangriffey.horizontalcalendar;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.squareup.timessquare.CalendarRowView;
@@ -13,11 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * class created by briangriffey
+ * class created by @briangriffey
+ * http://www.briangriffey.com
  */
 public class WeekdayHeader extends FrameLayout {
 
-    private CalendarRowView mHeaderViews;
+    private ViewGroup mHeaderViews;
 
     private DateFormat mWeekdayNameFormat;
 
@@ -25,7 +27,7 @@ public class WeekdayHeader extends FrameLayout {
         super(context, attrs);
 
         mWeekdayNameFormat = new SimpleDateFormat(context.getString(R.string.day_name_format));
-        mHeaderViews = (CalendarRowView) LayoutInflater.from(context).inflate(R.layout.weekday_header, this, false);
+        mHeaderViews = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.weekday_header, this, false);
         addView(mHeaderViews);
 
         initializeHeaders();

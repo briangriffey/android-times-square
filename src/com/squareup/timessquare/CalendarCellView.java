@@ -43,6 +43,7 @@ public class CalendarCellView extends TextView {
 
   public CalendarCellView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
+
   }
 
   public void setSelectable(boolean isSelectable) {
