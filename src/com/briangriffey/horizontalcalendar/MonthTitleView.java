@@ -1,6 +1,8 @@
 package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -35,13 +37,6 @@ public class MonthTitleView extends ViewGroup{
         super(context, attrs);
         init(context);
     }
-
-    public MonthTitleView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init(context);
-    }
-
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

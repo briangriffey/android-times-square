@@ -13,4 +13,12 @@
 
   </declare-styleable>
 
+  <declare-styleable name="FillingTextView">
+      <attr name="percent" format="float" />
+  </declare-styleable>
+
+  <declare-styleable name="HorizontalCalendar">
+      <attr name="dayStyle" format="reference" />
+  </declare-styleable>
+
 </resources>

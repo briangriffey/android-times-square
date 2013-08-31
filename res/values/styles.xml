@@ -1,5 +1,13 @@
 <!-- Copyright 2012 Square, Inc. -->
 <resources>
+
+  <style name="DefaultCalendarStyle">
+      <item name="dayStyle">@style/CalendarCell.CalendarDate</item>
+      <item name="android:background">@android:color/black</item>
+      <item name="android:textColor">@android:color/white</item>
+  </style>
+
+
   <style name="CalendarTitle">
     <item name="android:textSize">@dimen/calendar_text_medium</item>
     <item name="android:textColor">@color/calendar_text_active</item>
@@ -27,5 +35,6 @@
     <item name="android:textColor">@color/calendar_text_selector</item>
     <item name="android:clickable">true</item>
     <item name="android:textStyle">bold</item>
+    <item name="percent">.4</item>
   </style>
 </resources>

@@ -1,9 +1,11 @@
 package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import com.squareup.timessquare.R;
 
 /**
  * class created by briangriffey
@@ -20,20 +22,22 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
     public HorizontalCalendar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
-    }
 
-    public HorizontalCalendar(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+
+
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
+        //pull out custom colors and such
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalCalendar);
+        int dayStyle = typedArray.getResourceId(R.styleable.HorizontalCalendar_dayStyle, R.style.CalendarCell);
+
         setOrientation(LinearLayout.VERTICAL);
 
         LinearLayout.LayoutParams fullWidthParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-        mTitleView = new MonthTitleView(context);
+        mTitleView = new MonthTitleView(context, attrs);
         addView(mTitleView, fullWidthParams);
 
         WeekdayHeader header = new WeekdayHeader(context, attrs);
@@ -47,6 +51,9 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
         View leftFlipper = mTitleView.getLeftFlipper();
         leftFlipper.setOnClickListener(this);
+
+        typedArray.recycle();
+
     }
 
 

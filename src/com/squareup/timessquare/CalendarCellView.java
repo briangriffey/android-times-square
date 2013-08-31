@@ -5,9 +5,10 @@ package com.squareup.timessquare;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import com.briangriffey.horizontalcalendar.FillingTextView;
 import com.squareup.timessquare.MonthCellDescriptor.RangeState;
 
-public class CalendarCellView extends TextView {
+public class CalendarCellView extends FillingTextView {
 
   private static final int[] STATE_SELECTABLE = {
       R.attr.state_selectable

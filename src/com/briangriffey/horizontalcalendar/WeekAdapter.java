@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import com.squareup.timessquare.CalendarCellView;
 import com.squareup.timessquare.R;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * class created by briangriffey
  */
@@ -16,8 +19,14 @@ public class WeekAdapter extends BaseAdapter {
     private static final int WEEKS_IN_YEAR = 52;
     private final LayoutInflater mInflater;
 
+    private Calendar mCalendar;
+    private Date mToday;
+
     public WeekAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+        mCalendar = Calendar.getInstance();
+
+        mToday = new Date();
     }
 
     @Override
@@ -36,10 +45,19 @@ public class WeekAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int weeksPastToday, View convertView, ViewGroup parent) {
 
         if(convertView == null)
             convertView = mInflater.inflate(R.layout.week, parent, false);
+
+        mCalendar.setTime(mToday);
+        mCalendar.add(Calendar.DATE, 7 * weeksPastToday);
+
+        int dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK);
+        int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
+
+        int difference = firstDayOfWeek - dayOfWeek;
+        mCalendar.add(Calendar.DATE, difference);
 
         ViewGroup groupView = (ViewGroup)convertView;
 
@@ -47,7 +65,8 @@ public class WeekAdapter extends BaseAdapter {
 //            MonthCellDescriptor cell = week.get(c);
             CalendarCellView cellView = (CalendarCellView) groupView.getChildAt(c);
 
-            cellView.setText(Integer.toString(c));
+            cellView.setText(Integer.toString(mCalendar.get(Calendar.DAY_OF_MONTH)));
+            mCalendar.add(Calendar.DATE, 1);
 //            cellView.setEnabled(cell.isCurrentMonth());
 //
 //            cellView.setSelectable(cell.isSelectable());
