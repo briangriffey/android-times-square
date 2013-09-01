@@ -30,12 +30,12 @@ public class MonthTitleView extends ViewGroup{
 
     public MonthTitleView(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public MonthTitleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     @Override
@@ -72,10 +72,10 @@ public class MonthTitleView extends ViewGroup{
 
     }
 
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
         mLeftFlipper = new ImageView(context);
         mRightFlipper = new ImageView(context);
-        mTitleView = new FillingTextView(context);
+        mTitleView = new FillingTextView(context, attrs);
 
         mTitleView.setText("Test Text");
         mTitleView.setGravity(Gravity.CENTER);

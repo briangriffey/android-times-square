@@ -20,6 +20,10 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
     super(context, attrs);
   }
 
+  public CalendarRowView(Context context, AttributeSet attrs, int style){
+      super(context, attrs, style);
+  }
+
   @Override public void addView(View child, int index, ViewGroup.LayoutParams params) {
     child.setOnClickListener(this);
     super.addView(child, index, params);

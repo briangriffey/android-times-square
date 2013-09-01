@@ -22,16 +22,13 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
     public HorizontalCalendar(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-
-
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
         //pull out custom colors and such
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalCalendar);
-        int dayStyle = typedArray.getResourceId(R.styleable.HorizontalCalendar_dayStyle, R.style.CalendarCell);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalCalendar, 0, R.style.DefaultCalendarStyle);
+        int dayStyle = typedArray.getResourceId(R.styleable.HorizontalCalendar_dayStyle, R.style.CalendarCell_CalendarDate);
 
         setOrientation(LinearLayout.VERTICAL);
 
@@ -43,7 +40,7 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
         WeekdayHeader header = new WeekdayHeader(context, attrs);
         addView(header, fullWidthParams);
 
-        mWeekView = new ScrollingWeekView(context);
+        mWeekView = new ScrollingWeekView(context, dayStyle);
         addView(mWeekView, fullWidthParams);
 
         View rightFlipper = mTitleView.getRightFlipper();

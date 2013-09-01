@@ -18,14 +18,13 @@ public class ScrollingWeekView extends ListView {
     private static final int ANIMATION_TIME = 100;
     private int mRowHeight;
 
-    public ScrollingWeekView(Context context) {
+    public ScrollingWeekView(Context context, int cellStyle) {
         super(context);
-        setAdapter(new WeekAdapter(context));
+        setAdapter(new WeekAdapter(context, cellStyle));
 
         setDivider(null);
         setDividerHeight(0);
-
-
+        setScrollBarSize(0);
     }
 
     @Override

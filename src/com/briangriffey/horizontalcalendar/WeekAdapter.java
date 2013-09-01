@@ -17,16 +17,18 @@ import java.util.Date;
 public class WeekAdapter extends BaseAdapter {
 
     private static final int WEEKS_IN_YEAR = 52;
-    private final LayoutInflater mInflater;
+    private final Context mContext;
+    private final int mCellStyle;
 
     private Calendar mCalendar;
     private Date mToday;
 
-    public WeekAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
+    public WeekAdapter(Context context, int cellStyle) {
+        mContext = context;
         mCalendar = Calendar.getInstance();
 
         mToday = new Date();
+        mCellStyle = cellStyle;
     }
 
     @Override
@@ -47,8 +49,8 @@ public class WeekAdapter extends BaseAdapter {
     @Override
     public View getView(int weeksPastToday, View convertView, ViewGroup parent) {
 
-        if(convertView == null)
-            convertView = mInflater.inflate(R.layout.week, parent, false);
+        if (convertView == null)
+            convertView = new WeekView(mContext, null, mCellStyle);
 
         mCalendar.setTime(mToday);
         mCalendar.add(Calendar.DATE, 7 * weeksPastToday);
@@ -59,7 +61,7 @@ public class WeekAdapter extends BaseAdapter {
         int difference = firstDayOfWeek - dayOfWeek;
         mCalendar.add(Calendar.DATE, difference);
 
-        ViewGroup groupView = (ViewGroup)convertView;
+        ViewGroup groupView = (ViewGroup) convertView;
 
         for (int c = 0; c < 7; c++) {
 //            MonthCellDescriptor cell = week.get(c);

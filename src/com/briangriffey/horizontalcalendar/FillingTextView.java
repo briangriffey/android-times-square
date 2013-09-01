@@ -45,8 +45,6 @@ public class FillingTextView extends TextView {
 
         setTextSize(TypedValue.COMPLEX_UNIT_PX, actualTextHeight);
         setGravity(Gravity.CENTER);
-
-
     }
 
     public float getFillSize() {
