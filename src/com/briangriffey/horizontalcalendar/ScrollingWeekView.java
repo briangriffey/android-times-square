@@ -19,9 +19,9 @@ public class ScrollingWeekView extends ListView {
     private static final int ANIMATION_TIME = 100;
     private int mRowHeight;
 
-    public ScrollingWeekView(Context context, int cellStyle, int dividerSize) {
+    public ScrollingWeekView(Context context, int cellStyle, int dividerSize, OnClickListener clickListener) {
         super(context);
-        setAdapter(new WeekAdapter(context, cellStyle, dividerSize));
+        setAdapter(new WeekAdapter(context, cellStyle, dividerSize, clickListener));
 
         setDivider(new ColorDrawable(0x00000000));
         setDividerHeight(dividerSize);

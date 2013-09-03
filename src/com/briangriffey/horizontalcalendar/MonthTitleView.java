@@ -11,13 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.timessquare.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 /**
  * class created by briangriffey
  */
-public class MonthTitleView extends ViewGroup{
+public class MonthTitleView extends ViewGroup {
 
     private static final int TITLE_CELL_SPAN = 5;
     private static final int DAYS_IN_A_WEEK = 7;
@@ -25,6 +28,7 @@ public class MonthTitleView extends ViewGroup{
     private ImageView mLeftFlipper;
     private ImageView mRightFlipper;
     private TextView mTitleView;
+    private SimpleDateFormat mDateFormat;
 
     private int mCellSize;
 
@@ -67,18 +71,18 @@ public class MonthTitleView extends ViewGroup{
         int cellHeight = bottom - top;
 
         mLeftFlipper.layout(0, 0, mCellSize, cellHeight);
-        mTitleView.layout(mCellSize, 0, mTitleView.getMeasuredWidth(), cellHeight);
+        mTitleView.layout(mCellSize, 0, mCellSize + (mCellSize * TITLE_CELL_SPAN), cellHeight);
         mRightFlipper.layout(mCellSize * (DAYS_IN_A_WEEK - 1), 0, mCellSize * DAYS_IN_A_WEEK, cellHeight);
 
     }
 
     private void init(Context context, AttributeSet attrs) {
+        mDateFormat = new SimpleDateFormat(context.getString(R.string.month_name_format));
+
         mLeftFlipper = new ImageView(context);
         mRightFlipper = new ImageView(context);
-        mTitleView = new FillingTextView(context, attrs);
 
-        mTitleView.setText("Test Text");
-        mTitleView.setGravity(Gravity.CENTER);
+        mTitleView = new FillingTextView(context, attrs);
 
         mLeftFlipper.setScaleType(ImageView.ScaleType.CENTER);
         mRightFlipper.setScaleType(ImageView.ScaleType.CENTER);
@@ -103,5 +107,10 @@ public class MonthTitleView extends ViewGroup{
 
     public View getLeftFlipper() {
         return mLeftFlipper;
+    }
+
+    public void setDate(Date date) {
+        String dateString = mDateFormat.format(date);
+        mTitleView.setText(dateString);
     }
 }

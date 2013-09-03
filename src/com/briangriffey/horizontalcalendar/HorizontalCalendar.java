@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.squareup.timessquare.R;
+import java.util.Date;
 
 /**
  * class created by briangriffey
@@ -14,6 +15,7 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
     private MonthTitleView mTitleView;
     private ScrollingWeekView mWeekView;
+    private Listener mListener;
 
     public HorizontalCalendar(Context context) {
         super(context);
@@ -36,12 +38,13 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
         LinearLayout.LayoutParams fullWidthParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         mTitleView = new MonthTitleView(context, attrs);
+        mTitleView.setDate(new Date());
         addView(mTitleView, fullWidthParams);
 
         WeekdayHeader header = new WeekdayHeader(context, attrs, dividerSize);
         addView(header, fullWidthParams);
 
-        mWeekView = new ScrollingWeekView(context, dayStyle, dividerSize);
+        mWeekView = new ScrollingWeekView(context, dayStyle, dividerSize, this);
         addView(mWeekView, fullWidthParams);
 
         View rightFlipper = mTitleView.getRightFlipper();
@@ -51,7 +54,6 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
         leftFlipper.setOnClickListener(this);
 
         typedArray.recycle();
-
     }
 
 
@@ -61,6 +63,32 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
             mWeekView.scrollUpOneWeek();
         } else if(v == mTitleView.getRightFlipper()) {
             mWeekView.scrollDownOneWeek();
+        } else {
+            Object tag = v.getTag();
+            if(tag == null)
+                return;
+            else {
+                Date date = (Date) tag;
+                mTitleView.setDate(date);
+                v.setSelected(true);
+                if(mListener != null) {
+                    mListener.onDatePicked(date);
+                }
+            }
         }
+
+        setCorrectTitleIfNeeded();
+    }
+
+    public void setListener(Listener listener) {
+        mListener = listener;
+    }
+
+    private void setCorrectTitleIfNeeded() {
+        int visiblePosition = mWeekView.getFirstVisiblePosition();
+    }
+
+    public static interface Listener {
+        void onDatePicked(Date date);
     }
 }

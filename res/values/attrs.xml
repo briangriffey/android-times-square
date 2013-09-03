@@ -15,7 +15,8 @@
 
   <declare-styleable name="FillingTextView">
       <attr name="percent" format="float" />
-      <attr name="android:background" />
+      <attr name="backgroundColor" format="color" />
+      <attr name="highlightColor" format="color" />
   </declare-styleable>
 
   <declare-styleable name="HorizontalCalendar">

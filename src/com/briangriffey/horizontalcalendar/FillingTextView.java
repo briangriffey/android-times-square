@@ -14,13 +14,14 @@ import com.squareup.timessquare.R;
  */
 public class FillingTextView extends TextView {
 
-    private static final float DEFAULT_FILL_SIZE = .7f;
+    private static final float DEFAULT_FILL_SIZE = .65f;
 
     private float mFillSize;
 
     public FillingTextView(Context context) {
         super(context);
         mFillSize = DEFAULT_FILL_SIZE;
+        setGravity(Gravity.CENTER);
     }
 
     public FillingTextView(Context context, AttributeSet attrs) {
@@ -30,10 +31,12 @@ public class FillingTextView extends TextView {
         mFillSize = a.getFloat(R.styleable.FillingTextView_percent, DEFAULT_FILL_SIZE);
         a.recycle();
 
+        setGravity(Gravity.CENTER);
     }
 
     public FillingTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setGravity(Gravity.CENTER);
     }
 
     @Override
@@ -44,7 +47,7 @@ public class FillingTextView extends TextView {
         final int actualTextHeight = (int)(largestPossibleTextHeight * mFillSize);
 
         setTextSize(TypedValue.COMPLEX_UNIT_PX, actualTextHeight);
-        setGravity(Gravity.CENTER);
+
     }
 
     public float getFillSize() {

@@ -1,15 +1,16 @@
 package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.squareup.timessquare.CalendarCellView;
-import com.squareup.timessquare.R;
+import com.squareup.timessquare.MonthCellDescriptor;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * class created by briangriffey
@@ -20,17 +21,21 @@ public class WeekAdapter extends BaseAdapter {
     private final Context mContext;
     private final int mCellStyle;
     private final int mDividerSize;
+    private final View.OnClickListener mClickListener;
 
     private Calendar mCalendar;
     private Date mToday;
 
-    public WeekAdapter(Context context, int cellStyle, int dividerSize) {
+
+    public WeekAdapter(Context context, int cellStyle, int dividerSize, View.OnClickListener onClickListener) {
         mContext = context;
         mCalendar = Calendar.getInstance();
 
         mToday = new Date();
         mCellStyle = cellStyle;
         mDividerSize = dividerSize;
+
+        mClickListener = onClickListener;
     }
 
     @Override
@@ -69,22 +74,31 @@ public class WeekAdapter extends BaseAdapter {
         ViewGroup groupView = (ViewGroup) convertView;
 
         for (int c = 0; c < 7; c++) {
-//            MonthCellDescriptor cell = week.get(c);
+//            MonthCellDescriptor cell = new MonthCellDescriptor();
+
+            Date date = mCalendar.getTime();
+
             CalendarCellView cellView = (CalendarCellView) groupView.getChildAt(c);
 
             cellView.setText(Integer.toString(mCalendar.get(Calendar.DAY_OF_MONTH)));
+            cellView.setDate(date);
+            cellView.setOnClickListener(mClickListener);
+
             mCalendar.add(Calendar.DATE, 1);
+
 //            cellView.setEnabled(cell.isCurrentMonth());
 //
 //            cellView.setSelectable(cell.isSelectable());
 //            cellView.setSelected(cell.isSelected());
-//            cellView.setCurrentMonth(cell.isCurrentMonth());
+//              cellView.setCurrentMonth(cell.isCurrentMonth());
 //            cellView.setToday(cell.isToday());
 //            cellView.setRangeState(cell.getRangeState());
-//            cellView.setTag(cell);
+            cellView.setTag(date);
         }
 
 
         return convertView;
     }
+
+
 }
