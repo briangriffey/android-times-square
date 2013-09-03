@@ -19,16 +19,18 @@ public class WeekAdapter extends BaseAdapter {
     private static final int WEEKS_IN_YEAR = 52;
     private final Context mContext;
     private final int mCellStyle;
+    private final int mDividerSize;
 
     private Calendar mCalendar;
     private Date mToday;
 
-    public WeekAdapter(Context context, int cellStyle) {
+    public WeekAdapter(Context context, int cellStyle, int dividerSize) {
         mContext = context;
         mCalendar = Calendar.getInstance();
 
         mToday = new Date();
         mCellStyle = cellStyle;
+        mDividerSize = dividerSize;
     }
 
     @Override
@@ -49,8 +51,11 @@ public class WeekAdapter extends BaseAdapter {
     @Override
     public View getView(int weeksPastToday, View convertView, ViewGroup parent) {
 
-        if (convertView == null)
-            convertView = new WeekView(mContext, null, mCellStyle);
+        if (convertView == null) {
+            WeekView weekView = new WeekView(mContext, null, mCellStyle);
+            weekView.setGutterSize(mDividerSize);
+            convertView = weekView;
+        }
 
         mCalendar.setTime(mToday);
         mCalendar.add(Calendar.DATE, 7 * weeksPastToday);

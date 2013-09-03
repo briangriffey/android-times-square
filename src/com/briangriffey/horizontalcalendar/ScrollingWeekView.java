@@ -2,6 +2,7 @@ package com.briangriffey.horizontalcalendar;
 
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
@@ -18,12 +19,12 @@ public class ScrollingWeekView extends ListView {
     private static final int ANIMATION_TIME = 100;
     private int mRowHeight;
 
-    public ScrollingWeekView(Context context, int cellStyle) {
+    public ScrollingWeekView(Context context, int cellStyle, int dividerSize) {
         super(context);
-        setAdapter(new WeekAdapter(context, cellStyle));
+        setAdapter(new WeekAdapter(context, cellStyle, dividerSize));
 
-        setDivider(null);
-        setDividerHeight(0);
+        setDivider(new ColorDrawable(0x00000000));
+        setDividerHeight(dividerSize);
         setScrollBarSize(0);
     }
 

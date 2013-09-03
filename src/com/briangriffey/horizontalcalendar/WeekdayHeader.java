@@ -19,15 +19,16 @@ import java.util.Calendar;
  */
 public class WeekdayHeader extends FrameLayout {
 
-    private ViewGroup mHeaderViews;
+    private CalendarRowView mHeaderViews;
 
     private DateFormat mWeekdayNameFormat;
 
-    public WeekdayHeader(Context context, AttributeSet attrs) {
+    public WeekdayHeader(Context context, AttributeSet attrs, int gutterSize) {
         super(context, attrs);
 
         mWeekdayNameFormat = new SimpleDateFormat(context.getString(R.string.day_name_format));
-        mHeaderViews = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.weekday_header, this, false);
+        mHeaderViews = (CalendarRowView) LayoutInflater.from(context).inflate(R.layout.weekday_header, this, false);
+        mHeaderViews.setGutterSize(gutterSize);
         addView(mHeaderViews);
 
         initializeHeaders();

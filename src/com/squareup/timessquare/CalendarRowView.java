@@ -15,6 +15,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
   private boolean isHeaderRow;
   private MonthView.Listener listener;
   private int cellSize;
+  private int gutterSize;
 
   public CalendarRowView(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -32,7 +33,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     long start = System.currentTimeMillis();
     final int totalWidth = MeasureSpec.getSize(widthMeasureSpec);
-    cellSize = totalWidth / 7;
+    cellSize = (totalWidth - (gutterSize * 6)) / 7 ;
     int cellWidthSpec = makeMeasureSpec(cellSize, EXACTLY);
     int cellHeightSpec = isHeaderRow ? makeMeasureSpec(cellSize, AT_MOST) : cellWidthSpec;
     int rowHeight = 0;
@@ -55,7 +56,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
     int cellHeight = bottom - top;
     for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
       final View child = getChildAt(c);
-      child.layout(c * cellSize, 0, (c + 1) * cellSize, cellHeight);
+      child.layout((c * cellSize) + gutterSize, 0, (c + 1) * cellSize, cellHeight);
     }
     Logr.d("Row.onLayout %d ms", System.currentTimeMillis() - start);
   }
@@ -74,4 +75,12 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
   public void setListener(MonthView.Listener listener) {
     this.listener = listener;
   }
+
+    public int getGutterSize() {
+        return gutterSize;
+    }
+
+    public void setGutterSize(int gutterSize) {
+        this.gutterSize = gutterSize;
+    }
 }

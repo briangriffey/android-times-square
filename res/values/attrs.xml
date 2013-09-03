@@ -20,6 +20,7 @@
 
   <declare-styleable name="HorizontalCalendar">
       <attr name="dayStyle" format="reference" />
+      <attr name="cellDividerSize" format="dimension" />
   </declare-styleable>
 
 </resources>
