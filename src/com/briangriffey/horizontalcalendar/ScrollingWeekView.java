@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.widget.ListView;
+import java.util.Date;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
@@ -19,9 +20,13 @@ public class ScrollingWeekView extends ListView {
     private static final int ANIMATION_TIME = 100;
     private int mRowHeight;
 
+    private WeekAdapter mAdapter;
+
     public ScrollingWeekView(Context context, int cellStyle, int dividerSize, OnClickListener clickListener) {
         super(context);
-        setAdapter(new WeekAdapter(context, cellStyle, dividerSize, clickListener));
+
+        mAdapter = new WeekAdapter(context, cellStyle, dividerSize, clickListener);
+        setAdapter(mAdapter);
 
         setDivider(new ColorDrawable(0x00000000));
         setDividerHeight(dividerSize);
@@ -54,5 +59,9 @@ public class ScrollingWeekView extends ListView {
 
     public void scrollUpOneWeek() {
        smoothScrollBy(-mRowHeight, ANIMATION_TIME);
+    }
+
+    public void setSelectedDate(Date date) {
+       mAdapter.setSelectedDate(date);
     }
 }

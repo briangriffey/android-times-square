@@ -6,16 +6,19 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.squareup.timessquare.R;
+
 import java.util.Date;
 
 /**
  * class created by briangriffey
  */
-public class HorizontalCalendar extends LinearLayout implements View.OnClickListener{
+public class HorizontalCalendar extends LinearLayout implements View.OnClickListener {
 
     private MonthTitleView mTitleView;
     private ScrollingWeekView mWeekView;
     private Listener mListener;
+
+    private View mSelectedView;
 
     public HorizontalCalendar(Context context) {
         super(context);
@@ -59,25 +62,38 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v == mTitleView.getLeftFlipper()) {
+        if (v == mTitleView.getLeftFlipper()) {
             mWeekView.scrollUpOneWeek();
-        } else if(v == mTitleView.getRightFlipper()) {
+        } else if (v == mTitleView.getRightFlipper()) {
             mWeekView.scrollDownOneWeek();
         } else {
             Object tag = v.getTag();
-            if(tag == null)
+            if (tag == null) {
                 return;
-            else {
+            } else {
                 Date date = (Date) tag;
-                mTitleView.setDate(date);
-                v.setSelected(true);
-                if(mListener != null) {
-                    mListener.onDatePicked(date);
-                }
+                setNewSelectedDate(v, date);
             }
         }
 
         setCorrectTitleIfNeeded();
+    }
+
+    private void setNewSelectedDate(View v, Date date) {
+
+        mTitleView.setDate(date);
+        mWeekView.setSelectedDate(date);
+        if (v != mSelectedView) {
+            if(mSelectedView != null)
+                mSelectedView.setSelected(false);
+
+            mSelectedView = v;
+            mSelectedView.setSelected(true);
+        }
+
+        if (mListener != null) {
+            mListener.onDatePicked(date);
+        }
     }
 
     public void setListener(Listener listener) {

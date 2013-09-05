@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class WeekAdapter extends BaseAdapter {
 
     private static final int WEEKS_IN_YEAR = 52;
+
     private final Context mContext;
     private final int mCellStyle;
     private final int mDividerSize;
@@ -26,6 +27,7 @@ public class WeekAdapter extends BaseAdapter {
     private Calendar mCalendar;
     private Date mToday;
 
+    private Date mSelectedDate;
 
     public WeekAdapter(Context context, int cellStyle, int dividerSize, View.OnClickListener onClickListener) {
         mContext = context;
@@ -77,12 +79,17 @@ public class WeekAdapter extends BaseAdapter {
 //            MonthCellDescriptor cell = new MonthCellDescriptor();
 
             Date date = mCalendar.getTime();
-
             CalendarCellView cellView = (CalendarCellView) groupView.getChildAt(c);
 
             cellView.setText(Integer.toString(mCalendar.get(Calendar.DAY_OF_MONTH)));
             cellView.setDate(date);
             cellView.setOnClickListener(mClickListener);
+
+
+            if(date.equals(mSelectedDate))
+                cellView.setSelected(true);
+            else
+                cellView.setSelected(false);
 
             mCalendar.add(Calendar.DATE, 1);
 
@@ -98,6 +105,10 @@ public class WeekAdapter extends BaseAdapter {
 
 
         return convertView;
+    }
+
+    public void setSelectedDate(Date date) {
+        mSelectedDate = date;
     }
 
 
