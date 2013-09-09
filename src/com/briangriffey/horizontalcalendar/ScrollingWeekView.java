@@ -16,7 +16,7 @@ import static android.view.View.MeasureSpec.makeMeasureSpec;
 public class ScrollingWeekView extends ListView {
 
     //TODO: make this styleable
-    private static final int ROWS_TO_DISPLAY = 3;
+    private static final int ROWS_TO_DISPLAY = 2;
     private static final int ANIMATION_TIME = 100;
     private int mRowHeight;
 
