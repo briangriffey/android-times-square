@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
+    }
+}
+
+apply plugin: 'android-library'
+apply plugin: 'maven'
+apply plugin: 'android-test'
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.0.1"
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java {
+                srcDir 'src/'
+            }
+            res {
+                srcDir 'res/'
+            }
+        }
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.roboblectric:robolectric:2.1+'
+    testCompile 'com.squareup:fest-android:1.0+'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+            pom.artifactId = "horizontalcalendar"
+        }
+    }
+}
+task install(dependsOn: uploadArchives)
