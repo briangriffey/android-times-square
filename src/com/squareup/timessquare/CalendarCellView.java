@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 import com.briangriffey.horizontalcalendar.CellBackgroundDrawable;
 import com.briangriffey.horizontalcalendar.FillingTextView;
+import com.briangriffey.horizontalcalendar.R;
 import com.squareup.timessquare.MonthCellDescriptor.RangeState;
 
 import java.util.Date;

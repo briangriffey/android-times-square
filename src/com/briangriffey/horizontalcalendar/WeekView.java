@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import com.squareup.timessquare.CalendarCellView;
 import com.squareup.timessquare.CalendarRowView;
-import com.squareup.timessquare.R;
+import com.briangriffey.horizontalcalendar.R;
 
 /**
  * class created by @briangriffey

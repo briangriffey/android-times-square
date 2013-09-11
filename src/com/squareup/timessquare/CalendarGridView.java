@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.briangriffey.horizontalcalendar.R;
+
 import static android.view.View.MeasureSpec.AT_MOST;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;

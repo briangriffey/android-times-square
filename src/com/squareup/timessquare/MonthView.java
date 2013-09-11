@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.briangriffey.horizontalcalendar.R;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;

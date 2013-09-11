@@ -41,6 +41,8 @@ uploadArchives {
         mavenDeployer {
             repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
             pom.artifactId = "horizontalcalendar"
+            pom.groupId = group
+            pom.version = "1.0.0-SNAPSHOT"
         }
     }
 }

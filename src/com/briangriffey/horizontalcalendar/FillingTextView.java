@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.TextView;
-import com.squareup.timessquare.R;
+import com.briangriffey.horizontalcalendar.R;
 
 /**
  * class created by @briangriffey

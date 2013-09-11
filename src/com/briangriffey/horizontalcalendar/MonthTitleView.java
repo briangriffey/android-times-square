@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.timessquare.R;
+import com.briangriffey.horizontalcalendar.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
