@@ -3,6 +3,7 @@ package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.widget.ListView;
 import java.util.Date;
@@ -13,11 +14,9 @@ import static android.view.View.MeasureSpec.makeMeasureSpec;
 /**
  * class created by briangriffey
  */
-public class ScrollingWeekView extends ListView {
+public class ScrollingWeekView extends ViewPager {
 
-    //TODO: make this styleable
     private static final int ROWS_TO_DISPLAY = 2;
-    private static final int ANIMATION_TIME = 100;
     private int mRowHeight;
 
     private WeekAdapter mAdapter;
@@ -28,14 +27,10 @@ public class ScrollingWeekView extends ListView {
         mAdapter = new WeekAdapter(context, cellStyle, dividerSize, clickListener);
         setAdapter(mAdapter);
 
-        setDivider(new ColorDrawable(0x00000000));
-        setDividerHeight(dividerSize);
-        setScrollBarSize(0);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
         //get the width
         final int totalWidth = MeasureSpec.getSize(widthMeasureSpec);
         //figure out how big each cell will be
@@ -53,12 +48,15 @@ public class ScrollingWeekView extends ListView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void scrollDownOneWeek() {
-        smoothScrollBy(mRowHeight, ANIMATION_TIME);
+    public void scrollBack() {
+       if(getCurrentItem() - 1 > 0) {
+           setCurrentItem(getCurrentItem() - 1, true);
+       }
     }
 
-    public void scrollUpOneWeek() {
-       smoothScrollBy(-mRowHeight, ANIMATION_TIME);
+    public void scrollForward() {
+       if(getCurrentItem() + 1 < mAdapter.getCount())
+           setCurrentItem(getCurrentItem() + 1, true);
     }
 
     public void setSelectedDate(Date date) {

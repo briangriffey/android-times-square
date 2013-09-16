@@ -1,21 +1,25 @@
 package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
+import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
 import com.squareup.timessquare.CalendarCellView;
 import com.squareup.timessquare.MonthCellDescriptor;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * class created by briangriffey
  */
-public class WeekAdapter extends BaseAdapter {
+public class WeekAdapter extends PagerAdapter {
 
     private static final int WEEKS_IN_YEAR = 52;
 
@@ -29,6 +33,8 @@ public class WeekAdapter extends BaseAdapter {
 
     private Date mSelectedDate;
 
+    private BlockingQueue<BiWeeklyView> mRecycleViews;
+
     public WeekAdapter(Context context, int cellStyle, int dividerSize, View.OnClickListener onClickListener) {
         mContext = context;
         mCalendar = Calendar.getInstance();
@@ -38,6 +44,8 @@ public class WeekAdapter extends BaseAdapter {
         mDividerSize = dividerSize;
 
         mClickListener = onClickListener;
+
+        mRecycleViews = new LinkedBlockingQueue<BiWeeklyView>();
     }
 
     @Override
@@ -46,22 +54,33 @@ public class WeekAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean isViewFromObject(View view, Object o) {
+        return view == o;
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    public BiWeeklyView instantiateItem(ViewGroup container, int position) {
+        BiWeeklyView recycledView = mRecycleViews.poll();
+        recycledView = getView(position, recycledView, container);
+        container.addView(recycledView);
+
+        return recycledView;
     }
 
     @Override
-    public View getView(int weeksPastToday, View convertView, ViewGroup parent) {
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        BiWeeklyView weekView = (BiWeeklyView) object;
+        container.removeView(weekView);
+        //put this back into the list of things that we can get
+        mRecycleViews.offer(weekView);
+    }
+
+
+    public BiWeeklyView getView(int weeksPastToday, BiWeeklyView convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            WeekView weekView = new WeekView(mContext, null, mCellStyle);
-            weekView.setGutterSize(mDividerSize);
-            convertView = weekView;
+            convertView = new BiWeeklyView(mContext, null, mCellStyle);
+            convertView.setGutterSize(mDividerSize);
         }
 
         mCalendar.setTime(mToday);
@@ -73,36 +92,7 @@ public class WeekAdapter extends BaseAdapter {
         int difference = firstDayOfWeek - dayOfWeek;
         mCalendar.add(Calendar.DATE, difference);
 
-        ViewGroup groupView = (ViewGroup) convertView;
-
-        for (int c = 0; c < 7; c++) {
-//            MonthCellDescriptor cell = new MonthCellDescriptor();
-
-            Date date = mCalendar.getTime();
-            CalendarCellView cellView = (CalendarCellView) groupView.getChildAt(c);
-
-            cellView.setText(Integer.toString(mCalendar.get(Calendar.DAY_OF_MONTH)));
-            cellView.setDate(date);
-            cellView.setOnClickListener(mClickListener);
-
-
-            if(date.equals(mSelectedDate))
-                cellView.setSelected(true);
-            else
-                cellView.setSelected(false);
-
-            mCalendar.add(Calendar.DATE, 1);
-
-//            cellView.setEnabled(cell.isCurrentMonth());
-//
-//            cellView.setSelectable(cell.isSelectable());
-//            cellView.setSelected(cell.isSelected());
-//              cellView.setCurrentMonth(cell.isCurrentMonth());
-//            cellView.setToday(cell.isToday());
-//            cellView.setRangeState(cell.getRangeState());
-            cellView.setTag(date);
-        }
-
+        convertView.setStartDate(mCalendar);
 
         return convertView;
     }

@@ -36,7 +36,5 @@ public class WeekView extends CalendarRowView {
 
             addView(cellView);
         }
-
-
     }
 }

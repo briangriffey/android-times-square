@@ -89,4 +89,8 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
     public void setGutterSize(int gutterSize) {
         this.gutterSize = gutterSize;
     }
+
+    public void setHeaderRow(boolean headerRow) {
+        isHeaderRow = headerRow;
+    }
 }

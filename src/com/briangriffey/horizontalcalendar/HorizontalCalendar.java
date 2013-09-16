@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.briangriffey.horizontalcalendar.R;
 
 import java.util.Date;
 
@@ -45,9 +44,11 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
         addView(mTitleView, fullWidthParams);
 
         WeekdayHeader header = new WeekdayHeader(context, attrs, dividerSize);
+
         addView(header, fullWidthParams);
 
         mWeekView = new ScrollingWeekView(context, dayStyle, dividerSize, this);
+        mWeekView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         addView(mWeekView, fullWidthParams);
 
         View rightFlipper = mTitleView.getRightFlipper();
@@ -63,9 +64,9 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == mTitleView.getLeftFlipper()) {
-            mWeekView.scrollUpOneWeek();
+            mWeekView.scrollBack();
         } else if (v == mTitleView.getRightFlipper()) {
-            mWeekView.scrollDownOneWeek();
+            mWeekView.scrollForward();
         } else {
             Object tag = v.getTag();
             if (tag == null) {
@@ -101,7 +102,7 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
     }
 
     private void setCorrectTitleIfNeeded() {
-        int visiblePosition = mWeekView.getFirstVisiblePosition();
+       // int visiblePosition = mWeekView.getFirstVisiblePosition();
     }
 
     public static interface Listener {
