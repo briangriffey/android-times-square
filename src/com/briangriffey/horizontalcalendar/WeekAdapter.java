@@ -34,6 +34,7 @@ public class WeekAdapter extends PagerAdapter {
     private Date mSelectedDate;
 
     private BlockingQueue<BiWeeklyView> mRecycleViews;
+    private ReentrantLock mLock;
 
     public WeekAdapter(Context context, int cellStyle, int dividerSize, View.OnClickListener onClickListener) {
         mContext = context;
@@ -46,6 +47,7 @@ public class WeekAdapter extends PagerAdapter {
         mClickListener = onClickListener;
 
         mRecycleViews = new LinkedBlockingQueue<BiWeeklyView>();
+        mLock = new ReentrantLock();
     }
 
     @Override
@@ -75,26 +77,50 @@ public class WeekAdapter extends PagerAdapter {
         mRecycleViews.offer(weekView);
     }
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return super.getPageTitle(position);
+    }
 
-    public BiWeeklyView getView(int weeksPastToday, BiWeeklyView convertView, ViewGroup parent) {
+    public Date getDateForPosition(int i) {
+        mLock.lock();
 
-        if (convertView == null) {
-            convertView = new BiWeeklyView(mContext, null, mCellStyle);
-            convertView.setGutterSize(mDividerSize);
-        }
+        moveCalendarToRow(i);
+        Date date = mCalendar.getTime();
 
+        mLock.unlock();
+        return date;
+
+    }
+
+    private void moveCalendarToRow(int i) {
         mCalendar.setTime(mToday);
-        mCalendar.add(Calendar.DATE, 7 * weeksPastToday);
+        mCalendar.add(Calendar.DATE, 7 * 2 * i);
 
         int dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK);
         int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
 
         int difference = firstDayOfWeek - dayOfWeek;
         mCalendar.add(Calendar.DATE, difference);
+    }
 
-        convertView.setStartDate(mCalendar);
+    public BiWeeklyView getView(int weeksPastToday, BiWeeklyView convertView, ViewGroup parent) {
 
-        return convertView;
+        if (convertView == null) {
+            convertView = new BiWeeklyView(mContext, null, mCellStyle);
+            convertView.setGutterSize(mDividerSize);
+            convertView.setToday(mToday);
+        }
+
+        mLock.lock();
+        try {
+            moveCalendarToRow(weeksPastToday);
+            convertView.setStartDate(mCalendar);
+
+            return convertView;
+        } finally {
+            mLock.unlock();
+        }
     }
 
     public void setSelectedDate(Date date) {

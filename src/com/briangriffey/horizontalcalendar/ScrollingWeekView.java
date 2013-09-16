@@ -26,7 +26,6 @@ public class ScrollingWeekView extends ViewPager {
 
         mAdapter = new WeekAdapter(context, cellStyle, dividerSize, clickListener);
         setAdapter(mAdapter);
-
     }
 
     @Override
@@ -61,5 +60,9 @@ public class ScrollingWeekView extends ViewPager {
 
     public void setSelectedDate(Date date) {
        mAdapter.setSelectedDate(date);
+    }
+
+    public Date getDateForPosition(int i){
+        return mAdapter.getDateForPosition(i);
     }
 }

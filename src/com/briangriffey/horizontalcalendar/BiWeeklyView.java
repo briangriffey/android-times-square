@@ -18,6 +18,7 @@ public class BiWeeklyView extends ViewGroup {
 
     private WeekView[] mWeekViews;
     private int mGutterSize;
+    private Date mToday;
 
     public BiWeeklyView(Context context, AttributeSet attrs, int cellStyle) {
         super(context, attrs);
@@ -85,11 +86,10 @@ public class BiWeeklyView extends ViewGroup {
                 cellView.setDate(date);
 //                cellView.setOnClickListener(mClickListener);
 
-
-//                if (date.equals(mSelectedDate))
-//                    cellView.setSelected(true);
-//                else
-//                    cellView.setSelected(false);
+                if (date.equals(mToday))
+                    cellView.setSelected(true);
+                else
+                    cellView.setSelected(false);
 
                 calendar.add(Calendar.DATE, 1);
 
@@ -103,6 +103,10 @@ public class BiWeeklyView extends ViewGroup {
                 cellView.setTag(date);
             }
         }
+    }
 
+
+    public void setToday(Date today) {
+        this.mToday = today;
     }
 }

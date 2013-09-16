@@ -2,6 +2,7 @@ package com.briangriffey.horizontalcalendar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,7 +12,7 @@ import java.util.Date;
 /**
  * class created by briangriffey
  */
-public class HorizontalCalendar extends LinearLayout implements View.OnClickListener {
+public class HorizontalCalendar extends LinearLayout implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private MonthTitleView mTitleView;
     private ScrollingWeekView mWeekView;
@@ -49,6 +50,7 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
         mWeekView = new ScrollingWeekView(context, dayStyle, dividerSize, this);
         mWeekView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        mWeekView.setOnPageChangeListener(this);
         addView(mWeekView, fullWidthParams);
 
         View rightFlipper = mTitleView.getRightFlipper();
@@ -76,8 +78,6 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
                 setNewSelectedDate(v, date);
             }
         }
-
-        setCorrectTitleIfNeeded();
     }
 
     private void setNewSelectedDate(View v, Date date) {
@@ -101,8 +101,20 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
         mListener = listener;
     }
 
-    private void setCorrectTitleIfNeeded() {
-       // int visiblePosition = mWeekView.getFirstVisiblePosition();
+    @Override
+    public void onPageScrolled(int i, float v, int i2) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        Date date = mWeekView.getDateForPosition(i);
+        mTitleView.setDate(date);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 
     public static interface Listener {
