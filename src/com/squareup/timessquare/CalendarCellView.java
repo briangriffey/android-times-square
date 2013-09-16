@@ -45,21 +45,21 @@ public class CalendarCellView extends FillingTextView {
     public CalendarCellView(Context context) {
         super(context);
         mBackground = new CellBackgroundDrawable();
-        setBackground(mBackground);
+        setBackgroundDrawable(mBackground);
 
     }
 
     public CalendarCellView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mBackground = new CellBackgroundDrawable();
-        setBackground(mBackground);
+        setBackgroundDrawable(mBackground);
 
     }
 
     public CalendarCellView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mBackground = new CellBackgroundDrawable();
-        setBackground(mBackground);
+        setBackgroundDrawable(mBackground);
 
     }
 
@@ -121,21 +121,12 @@ public class CalendarCellView extends FillingTextView {
         this.date = date;
     }
 
-    @Override
-    public void setBackgroundColor(int color) {
-        mBackground.setBackgroundColor(color);
-    }
-
-    public void setBackgroundHighlightColor(int color) {
+    public void setTodayHighlightColor(int color) {
         mBackground.setHighlightColor(color);
     }
 
-    @Override
-    public void setBackgroundResource(int resid) {
-
+    public void setTodayBackgroundColor(int color) {
+        mBackground.setBackgroundColor(color);
     }
-
-
-
 
 }

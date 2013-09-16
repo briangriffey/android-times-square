@@ -15,7 +15,7 @@
 
   <declare-styleable name="FillingTextView">
       <attr name="percent" format="float" />
-      <attr name="backgroundColor" format="color" />
+      <attr name="todayBackgroundColor" format="color" />
       <attr name="highlightColor" format="color" />
   </declare-styleable>
 

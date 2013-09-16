@@ -34,7 +34,7 @@
     <item name="android:clickable">true</item>
     <item name="android:textStyle">normal</item>
     <item name="percent">.4</item>
-    <item name="backgroundColor">@android:color/black</item>
+    <item name="todayBackgroundColor">@android:color/black</item>
     <item name="highlightColor">@android:color/white</item>
   </style>
 </resources>

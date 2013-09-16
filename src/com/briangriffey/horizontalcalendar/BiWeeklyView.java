@@ -36,11 +36,11 @@ public class BiWeeklyView extends ViewGroup {
         int childMeasureSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
 
         //add up all of the views from top to bottom
-        for(WeekView weekView: mWeekViews) {
+        for (WeekView weekView : mWeekViews) {
             weekView.measure(widthMeasureSpec, childMeasureSpec);
         }
 
-       super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
@@ -49,10 +49,10 @@ public class BiWeeklyView extends ViewGroup {
         int height = getMeasuredHeight();
         int rowHeight = (getMeasuredHeight() - (mWeekViews.length * mGutterSize)) / mWeekViews.length;
 
-        for(WeekView weekView: mWeekViews) {
-            weekView.layout(0, t, r, t+rowHeight);
-            t+= rowHeight;
-            t+= mGutterSize;
+        for (WeekView weekView : mWeekViews) {
+            weekView.layout(0, t, r, t + rowHeight);
+            t += rowHeight;
+            t += mGutterSize;
         }
     }
 
@@ -60,7 +60,7 @@ public class BiWeeklyView extends ViewGroup {
         WeekView weekOne = new WeekView(context, set, cellStyle);
         WeekView weekTwo = new WeekView(context, set, cellStyle);
 
-        mWeekViews = new WeekView[] {weekOne, weekTwo};
+        mWeekViews = new WeekView[]{weekOne, weekTwo};
 
         addView(weekOne);
         addView(weekTwo);
@@ -87,9 +87,15 @@ public class BiWeeklyView extends ViewGroup {
 //                cellView.setOnClickListener(mClickListener);
 
                 if (date.equals(mToday))
-                    cellView.setSelected(true);
+                    cellView.setToday(true);
                 else
-                    cellView.setSelected(false);
+                    cellView.setToday(false);
+
+
+//                if (date.equals(mToday))
+//                    cellView.setSelected(true);
+//                else
+//                    cellView.setSelected(false);
 
                 calendar.add(Calendar.DATE, 1);
 

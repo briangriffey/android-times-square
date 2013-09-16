@@ -1,6 +1,5 @@
 package com.briangriffey.horizontalcalendar;
 
-import android.R;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
@@ -36,7 +35,7 @@ public class CellBackgroundDrawable extends Drawable {
 
         int[] state = getState();
         for (int i = 0; i < state.length; i++) {
-            if (state[i] == android.R.attr.state_selected) {
+            if (state[i] == R.attr.state_today) {
                 mPaint.setColor(mHighlightColor);
                 canvas.drawCircle(bounds.centerX(), bounds.centerY(), bounds.width()/2 - 4, mPaint);
             }

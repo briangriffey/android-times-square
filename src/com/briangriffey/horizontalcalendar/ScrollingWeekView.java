@@ -48,7 +48,7 @@ public class ScrollingWeekView extends ViewPager {
     }
 
     public void scrollBack() {
-       if(getCurrentItem() - 1 > 0) {
+       if(getCurrentItem() - 1 >= 0) {
            setCurrentItem(getCurrentItem() - 1, true);
        }
     }
