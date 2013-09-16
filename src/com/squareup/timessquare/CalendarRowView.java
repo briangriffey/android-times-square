@@ -61,7 +61,10 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
         int cellHeight = bottom - top;
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
             final View child = getChildAt(c);
-            child.layout((c * cellSize) + gutterSize, 0, (c + 1) * cellSize, cellHeight);
+            int cumulativeGutterSize = gutterSize * c;
+            int cellLeft = (c * cellSize) + cumulativeGutterSize;
+            int cellRight = cellLeft + cellSize;
+            child.layout(cellLeft, 0, cellRight, cellHeight);
         }
         Logr.d("Row.onLayout %d ms", System.currentTimeMillis() - start);
     }
