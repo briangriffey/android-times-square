@@ -33,6 +33,11 @@ public class CalendarCellView extends FillingTextView {
             R.attr.state_range_last
     };
 
+    private static final int[] STATE_HAS_ITEMS = {
+            R.attr.state_has_items
+    };
+
+    private boolean hasItems = false;
     private boolean isSelectable = false;
     private boolean isCurrentMonth = false;
     private boolean isToday = false;
@@ -76,6 +81,11 @@ public class CalendarCellView extends FillingTextView {
         refreshDrawableState();
     }
 
+    public void setHasItems(boolean hasItems) {
+        this.hasItems = hasItems;
+        refreshDrawableState();
+    }
+
     public void setRangeState(MonthCellDescriptor.RangeState rangeState) {
         this.rangeState = rangeState;
         refreshDrawableState();
@@ -95,6 +105,10 @@ public class CalendarCellView extends FillingTextView {
 
         if (isToday) {
             mergeDrawableStates(drawableState, STATE_TODAY);
+        }
+
+        if(hasItems) {
+            mergeDrawableStates(drawableState, STATE_HAS_ITEMS);
         }
 
         if (rangeState == MonthCellDescriptor.RangeState.FIRST) {

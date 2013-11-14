@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
@@ -30,6 +31,7 @@ public class WeekAdapter extends PagerAdapter {
 
     private BlockingQueue<BiWeeklyView> mRecycleViews;
     private ReentrantLock mLock;
+    private Set<Date> mDates;
 
     public WeekAdapter(Context context, int cellStyle, int dividerSize, View.OnClickListener onClickListener) {
         mContext = context;
@@ -112,7 +114,7 @@ public class WeekAdapter extends PagerAdapter {
         mLock.lock();
         try {
             moveCalendarToRow(weeksPastToday);
-            convertView.setStartDate(mCalendar);
+            convertView.setupWeeks(mCalendar, mDates);
 
             return convertView;
         } finally {
@@ -122,6 +124,11 @@ public class WeekAdapter extends PagerAdapter {
 
     public void setSelectedDate(Date date) {
         mSelectedDate = date;
+    }
+
+
+    public void setDates(Set<Date> dates) {
+        mDates = dates;
     }
 
 

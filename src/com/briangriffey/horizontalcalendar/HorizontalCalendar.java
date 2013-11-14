@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * class created by briangriffey
@@ -19,6 +20,7 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
     private Listener mListener;
 
     private View mSelectedView;
+    private Set<Date> mDates;
 
     public HorizontalCalendar(Context context) {
         super(context);
@@ -119,5 +121,9 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
     public static interface Listener {
         void onDatePicked(Date date);
+    }
+
+    public void setDates(Set<Date> dates) {
+        mWeekView.setDates(dates);
     }
 }

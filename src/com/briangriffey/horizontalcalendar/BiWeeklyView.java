@@ -8,6 +8,7 @@ import com.squareup.timessquare.CalendarCellView;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by @briangriffey on 9/16/13.
@@ -72,7 +73,7 @@ public class BiWeeklyView extends ViewGroup {
         }
     }
 
-    public void setStartDate(Calendar calendar) {
+    public void setupWeeks(Calendar calendar, Set<Date> dates) {
 
         for (WeekView weekView : mWeekViews) {
             for (int c = 0; c < 7; c++) {
@@ -95,21 +96,12 @@ public class BiWeeklyView extends ViewGroup {
                 else
                     cellView.setSelected(false);
 
+                if(dates != null)
+                    if(dates.contains(date))
+                        cellView.setHasItems(true);
 
-//                if (date.equals(mToday))
-//                    cellView.setSelected(true);
-//                else
-//                    cellView.setSelected(false);
 
                 calendar.add(Calendar.DATE, 1);
-
-//            cellView.setEnabled(cell.isCurrentMonth());
-//
-//            cellView.setSelectable(cell.isSelectable());
-//            cellView.setSelected(cell.isSelected());
-//              cellView.setCurrentMonth(cell.isCurrentMonth());
-//            cellView.setToday(cell.isToday());
-//            cellView.setRangeState(cell.getRangeState());
                 cellView.setTag(date);
             }
         }

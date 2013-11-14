@@ -2,11 +2,10 @@ package com.briangriffey.horizontalcalendar;
 
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
-import android.widget.ListView;
+
 import java.util.Date;
+import java.util.Set;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
@@ -64,5 +63,9 @@ public class ScrollingWeekView extends ViewPager {
 
     public Date getDateForPosition(int i){
         return mAdapter.getDateForPosition(i);
+    }
+
+    public void setDates(Set<Date> dateSet) {
+        mAdapter.setDates(dateSet);
     }
 }
