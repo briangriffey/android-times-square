@@ -21,4 +21,5 @@
   <item>
     <color android:color="@color/calendar_active_month_bg"/>
   </item>
+
 </selector>

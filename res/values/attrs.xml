@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
   <declare-styleable name="calendar_cell">
     <attr name="state_selectable" format="boolean" />
     <attr name="state_current_month" format="boolean" />
@@ -15,7 +16,7 @@
 
   <declare-styleable name="FillingTextView">
       <attr name="percent" format="float" />
-      <attr name="todayBackgroundColor" format="color" />
+      <attr name="todayBackgroundColor" format="reference" />
       <attr name="highlightColor" format="color" />
   </declare-styleable>
 

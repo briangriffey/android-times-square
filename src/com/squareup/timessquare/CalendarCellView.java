@@ -3,10 +3,8 @@
 package com.squareup.timessquare;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.TextView;
+
 import com.briangriffey.horizontalcalendar.CellBackgroundDrawable;
 import com.briangriffey.horizontalcalendar.FillingTextView;
 import com.briangriffey.horizontalcalendar.R;
@@ -44,21 +42,21 @@ public class CalendarCellView extends FillingTextView {
 
     public CalendarCellView(Context context) {
         super(context);
-        mBackground = new CellBackgroundDrawable();
+        mBackground = new CellBackgroundDrawable(context.getResources());
         setBackgroundDrawable(mBackground);
 
     }
 
     public CalendarCellView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mBackground = new CellBackgroundDrawable();
+        mBackground = new CellBackgroundDrawable(context.getResources());
         setBackgroundDrawable(mBackground);
 
     }
 
     public CalendarCellView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mBackground = new CellBackgroundDrawable();
+        mBackground = new CellBackgroundDrawable(context.getResources());
         setBackgroundDrawable(mBackground);
 
     }

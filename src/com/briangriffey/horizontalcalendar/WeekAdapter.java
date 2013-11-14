@@ -4,16 +4,11 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-
-import com.squareup.timessquare.CalendarCellView;
-import com.squareup.timessquare.MonthCellDescriptor;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -41,6 +36,7 @@ public class WeekAdapter extends PagerAdapter {
         mCalendar = Calendar.getInstance();
 
         mToday = new Date();
+        mSelectedDate = mToday;
         mCellStyle = cellStyle;
         mDividerSize = dividerSize;
 
@@ -107,9 +103,10 @@ public class WeekAdapter extends PagerAdapter {
     public BiWeeklyView getView(int weeksPastToday, BiWeeklyView convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = new BiWeeklyView(mContext, null, mCellStyle);
+            convertView = new BiWeeklyView(mContext, null, mCellStyle, mClickListener);
             convertView.setGutterSize(mDividerSize);
             convertView.setToday(mToday);
+            convertView.setSelectedDay(mSelectedDate);
         }
 
         mLock.lock();

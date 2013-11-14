@@ -3,11 +3,9 @@ package com.briangriffey.horizontalcalendar;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.squareup.timessquare.CalendarCellView;
 
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,19 +14,20 @@ import java.util.Date;
  */
 public class BiWeeklyView extends ViewGroup {
 
+    private final OnClickListener mOnClickListener;
     private WeekView[] mWeekViews;
     private int mGutterSize;
     private Date mToday;
+    private Date mSelectedDay;
 
-    public BiWeeklyView(Context context, AttributeSet attrs, int cellStyle) {
+    public BiWeeklyView(Context context, AttributeSet attrs, int cellStyle, OnClickListener onClickListener) {
         super(context, attrs);
         init(context, attrs, cellStyle);
+        mOnClickListener = onClickListener;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = 0;
-
         int totalHeight = MeasureSpec.getSize(heightMeasureSpec);
         totalHeight -= mGutterSize * mWeekViews.length;
         totalHeight /= mWeekViews.length;
@@ -84,12 +83,17 @@ public class BiWeeklyView extends ViewGroup {
 
                 cellView.setText(Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
                 cellView.setDate(date);
-//                cellView.setOnClickListener(mClickListener);
+                cellView.setOnClickListener(mOnClickListener);
 
                 if (date.equals(mToday))
                     cellView.setToday(true);
                 else
                     cellView.setToday(false);
+
+                if(date.equals(mSelectedDay))
+                    cellView.setSelected(true);
+                else
+                    cellView.setSelected(false);
 
 
 //                if (date.equals(mToday))
@@ -114,5 +118,9 @@ public class BiWeeklyView extends ViewGroup {
 
     public void setToday(Date today) {
         this.mToday = today;
+    }
+
+    public void setSelectedDay(Date selectedDay) {
+        this.mSelectedDay = selectedDay;
     }
 }

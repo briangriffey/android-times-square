@@ -17,8 +17,9 @@ public class WeekView extends CalendarRowView {
 
         TypedArray a = context.obtainStyledAttributes(cellStyle, R.styleable.FillingTextView);
         float fillSize = a.getFloat(R.styleable.FillingTextView_percent, 0);
-        int background = a.getColor(R.styleable.FillingTextView_todayBackgroundColor, 0);
+        int todayBackground = a.getResourceId(R.styleable.FillingTextView_todayBackgroundColor, 0);
         int highlight = a.getColor(R.styleable.FillingTextView_highlightColor, 0);
+
         a.recycle();
 
         for(int i = 0; i<7; i++) {
@@ -27,8 +28,8 @@ public class WeekView extends CalendarRowView {
 
             if(fillSize != 0)
                 cellView.setFillSize(fillSize);
-            if(background != 0)
-                cellView.setTodayBackgroundColor(background);
+            if(todayBackground != 0)
+                cellView.setTodayBackgroundColor(todayBackground);
             if(highlight != 0)
                 cellView.setTodayHighlightColor(highlight);
 

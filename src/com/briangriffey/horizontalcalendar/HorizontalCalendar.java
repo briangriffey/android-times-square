@@ -62,7 +62,6 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
         typedArray.recycle();
     }
 
-
     @Override
     public void onClick(View v) {
         if (v == mTitleView.getLeftFlipper()) {
@@ -84,6 +83,7 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
 
         mTitleView.setDate(date);
         mWeekView.setSelectedDate(date);
+
         if (v != mSelectedView) {
             if(mSelectedView != null)
                 mSelectedView.setSelected(false);

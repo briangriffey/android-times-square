@@ -1,5 +1,7 @@
 package com.briangriffey.horizontalcalendar;
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
@@ -15,9 +17,17 @@ public class CellBackgroundDrawable extends Drawable {
     private Paint mPaint = new Paint();
     private int mBackgroundColor;
     private int mHighlightColor;
+    private Resources mResources;
+    private ColorStateList mColorStateList;
+
+    public CellBackgroundDrawable(Resources resources) {
+        mResources = resources;
+
+    }
 
     public void setBackgroundColor(int color) {
         mBackgroundColor = color;
+        mColorStateList = mResources.getColorStateList(color);
     }
 
     public void setHighlightColor(int color) {
@@ -28,9 +38,11 @@ public class CellBackgroundDrawable extends Drawable {
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
 
+        int color = mColorStateList.getColorForState(getState(), 0);
+
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(mBackgroundColor);
+        mPaint.setColor(color);
         canvas.drawRect(bounds, mPaint);
 
         int[] state = getState();
