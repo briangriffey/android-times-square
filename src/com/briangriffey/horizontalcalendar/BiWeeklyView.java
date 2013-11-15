@@ -20,11 +20,13 @@ public class BiWeeklyView extends ViewGroup {
     private int mGutterSize;
     private Date mToday;
     private Date mSelectedDay;
+    private DateSanitizer mDateSanitizer;
 
     public BiWeeklyView(Context context, AttributeSet attrs, int cellStyle, OnClickListener onClickListener) {
         super(context, attrs);
         init(context, attrs, cellStyle);
         mOnClickListener = onClickListener;
+        mDateSanitizer = new DateSanitizer();
     }
 
     @Override
@@ -96,9 +98,12 @@ public class BiWeeklyView extends ViewGroup {
                 else
                     cellView.setSelected(false);
 
-                if(dates != null)
-                    if(dates.contains(date))
+                if(dates != null) {
+                    Date sanitizedDate = mDateSanitizer.sanitizeDate(date);
+                    if(dates.contains(sanitizedDate)) {
                         cellView.setHasItems(true);
+                    }
+                }
 
 
                 calendar.add(Calendar.DATE, 1);
@@ -114,5 +119,11 @@ public class BiWeeklyView extends ViewGroup {
 
     public void setSelectedDay(Date selectedDay) {
         this.mSelectedDay = selectedDay;
+    }
+
+    public void setDates(Set<Date> dates) {
+        for(WeekView weekView: mWeekViews) {
+            weekView.setDates(dates);
+        }
     }
 }

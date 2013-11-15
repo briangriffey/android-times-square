@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 import com.squareup.timessquare.CalendarCellView;
 import com.squareup.timessquare.CalendarRowView;
 
+import java.util.Date;
+import java.util.Set;
+
 /**
  * class created by @briangriffey
  * http://www.briangriffey.com
@@ -34,6 +37,21 @@ public class WeekView extends CalendarRowView {
                 cellView.setTodayHighlightColor(highlight);
 
             addView(cellView);
+        }
+    }
+
+    public void setDates(Set<Date> dates) {
+        for(int i = 0; i<getChildCount(); i++) {
+            CalendarCellView cellView = (CalendarCellView) getChildAt(i);
+            if(dates == null) {
+                cellView.setHasItems(false);
+                continue;
+            }
+
+            if(dates.contains(cellView.getDate())) {
+                cellView.setHasItems(true);
+                cellView.invalidate();
+            }
         }
     }
 }

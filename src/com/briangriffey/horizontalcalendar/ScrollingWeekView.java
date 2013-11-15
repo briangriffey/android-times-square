@@ -67,5 +67,10 @@ public class ScrollingWeekView extends ViewPager {
 
     public void setDates(Set<Date> dateSet) {
         mAdapter.setDates(dateSet);
+
+        for(int i = 0; i<getChildCount(); i++) {
+            BiWeeklyView biWeeklyView = (BiWeeklyView) getChildAt(i);
+            biWeeklyView.setDates(dateSet);
+        }
     }
 }

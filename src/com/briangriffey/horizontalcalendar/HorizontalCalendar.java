@@ -22,6 +22,8 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
     private View mSelectedView;
     private Set<Date> mDates;
 
+    private DateSanitizer mDateSanitizer;
+
     public HorizontalCalendar(Context context) {
         super(context);
         init(context, null);
@@ -33,6 +35,8 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
     }
 
     private void init(Context context, AttributeSet attrs) {
+        mDateSanitizer = new DateSanitizer();
+
         //pull out custom colors and such
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalCalendar, 0, R.style.DefaultCalendarStyle);
         int dayStyle = typedArray.getResourceId(R.styleable.HorizontalCalendar_dayStyle, R.style.CalendarCell_CalendarDate);
@@ -124,6 +128,9 @@ public class HorizontalCalendar extends LinearLayout implements View.OnClickList
     }
 
     public void setDates(Set<Date> dates) {
-        mWeekView.setDates(dates);
+        Set<Date> truncatedDates = mDateSanitizer.sanitizeDates(dates);
+        mWeekView.setDates(truncatedDates);
     }
+
+
 }

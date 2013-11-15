@@ -14,7 +14,7 @@ import android.graphics.drawable.Drawable;
  */
 public class CellBackgroundDrawable extends Drawable {
 
-    private static final int HAS_EVENTS_CIRCLE_RADIUS = 2;
+    private static final int HAS_EVENTS_CIRCLE_RADIUS = 32;
 
     private Paint mPaint = new Paint();
     private int mBackgroundColor;
@@ -53,12 +53,13 @@ public class CellBackgroundDrawable extends Drawable {
                 mPaint.setColor(mHighlightColor);
                 canvas.drawCircle(bounds.centerX(), bounds.centerY(), bounds.width()/2 - 4, mPaint);
             } else if(state[i] == R.attr.state_has_items) {
-                mPaint.setColor(mHighlightColor);
-
                 int height = bounds.height();
-                int circleMiddle = height - (2 * HAS_EVENTS_CIRCLE_RADIUS);
+                int radius = height / 20;
 
-                canvas.drawCircle(bounds.centerX(), circleMiddle, HAS_EVENTS_CIRCLE_RADIUS, mPaint);
+                mPaint.setColor(mHighlightColor);
+                int circleMiddle = height * 13/16;
+
+                canvas.drawCircle(bounds.centerX(), circleMiddle, radius, mPaint);
             }
         }
     }

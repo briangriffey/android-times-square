@@ -33,11 +33,14 @@ public class WeekAdapter extends PagerAdapter {
     private ReentrantLock mLock;
     private Set<Date> mDates;
 
+
+
     public WeekAdapter(Context context, int cellStyle, int dividerSize, View.OnClickListener onClickListener) {
         mContext = context;
         mCalendar = Calendar.getInstance();
 
-        mToday = new Date();
+        DateSanitizer dateSanitizer = new DateSanitizer();
+        mToday = dateSanitizer.sanitizeDate(new Date());
         mSelectedDate = mToday;
         mCellStyle = cellStyle;
         mDividerSize = dividerSize;
